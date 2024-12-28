@@ -1,4 +1,5 @@
 import { storageService } from './storage.service.js'
+import { utilService } from './util.service.js'
 
 export const toyService = {
     query,
@@ -10,10 +11,12 @@ export const toyService = {
     getFilterFromSearchParams,
 }
 
-TOY_KEY = 'toysDB'
+const TOY_KEY = 'toysDB'
+
+_makeStartingToys()
 
 async function query(filter={}){
-    const toysList = await storageService.query() 
+    const toysList = await storageService.query(TOY_KEY) 
     return toysList
 }
 
@@ -38,7 +41,7 @@ function save(toy) {
 }
 
 function getEmptytoy(name='', price = 0, labels=[],
-     createdAt=new Date(), inStock=false) {
+     createdAt= Date.now(), inStock=false) {
     return { name, price, labels, createdAt, inStock }
 }
 
@@ -56,7 +59,6 @@ function getFilterFromSearchParams(searchParams) {
     return filterBy
 }
 
-
 function _setNextPrevToyId(toy) {
     return storageService.query(TOY_KEY).then((toys) => {
         const toyIdx = toys.findIndex((currtoy) => currtoy._id === toy._id)
@@ -66,5 +68,46 @@ function _setNextPrevToyId(toy) {
         toy.prevtoyId = prevtoy._id
         return toy
     })
+}
+
+async function _makeStartingToys(amount = 3){
+    if(!(await query())){
+
+        const newToys = []
+        for(let i=0; i<amount; i++){
+            const newToy = {
+                id: utilService.makeId(),
+                name: _randomToysNames(),
+                price: parseInt(Math.random() * 30),
+                labels: _getRandomLabels(parseInt
+                    (1 + Math.floor(Math.random()*4))), // 4 labels max
+                createdAt: Date.now(),
+                inStock: (Math.random() > 0.2) ? true : false,
+            }
+
+            newToys.push(newToy)
+        }
+        newToys.forEach(save)
+    }
+}
+
+function _randomToysNames(){
+    const toysNames = ['Lego', 'Doll', 'Toy Car',
+         'Water Gun', 'Board Game', 'Puzzel']
+
+    return utilService.getRandomFromArray(toysNames)
+}  
+
+function _getRandomLabels(amount = 3){
+    const labels = ['On wheels', 'Box game', 'Art', 'Baby',
+        'Doll', 'Puzzle','Outdoor', 'Battery Powered']
+   
+    const labelsAmount = amount
+    const toyLabels = []
+    for(let i=0; i<labelsAmount; i++){
+        toyLabels.push(labels.pop
+            (utilService.getRandomFromArray(labels)))
+    }
+    return toyLabels
 }
 
