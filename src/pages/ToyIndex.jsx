@@ -3,6 +3,8 @@ import { useSelector } from "react-redux"
 import { useEffect } from "react"
 import { loadToys } from '../store/toy/toy.actions.js'
 
+import { ToyList } from "../cmp/ToyList.jsx"
+
 export function ToyIndex(){
 
     const toys = useSelector(storeState =>
@@ -15,18 +17,9 @@ export function ToyIndex(){
 
     if(!toys) return <h2>Loading..</h2>
 
-    // console.log(toys)
-
     return(
         <section className="toy-index">
-            <ul>
-                { 
-                    toys.map(toy => <li key={toy.id}>
-                            <p>{toy.name}</p>
-                        </li>
-                    )
-                }
-            </ul>          
+            <ToyList toys={toys}/>
         </section>
     )
 }
