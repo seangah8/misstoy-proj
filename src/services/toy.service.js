@@ -12,7 +12,6 @@ export const toyService = {
 }
 
 const TOY_KEY = 'toysDB'
-
 _makeStartingToys()
 
 async function query(filter={}){
@@ -71,7 +70,8 @@ function _setNextPrevToyId(toy) {
 }
 
 async function _makeStartingToys(amount = 3){
-    if(!(await query())){
+    
+    if(!(await query()).length){
 
         const newToys = []
         for(let i=0; i<amount; i++){
@@ -85,9 +85,8 @@ async function _makeStartingToys(amount = 3){
                 inStock: (Math.random() > 0.2) ? true : false,
             }
 
-            newToys.push(newToy)
+            await save(newToy)
         }
-        newToys.forEach(save)
     }
 }
 
