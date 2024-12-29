@@ -15,7 +15,7 @@ export function ToyIndex(){
 
     if(!toys) return <h2>Loading..</h2>
 
-    console.log(toys)
+    // console.log(toys)
 
     return(
         <section className="toy-index">
