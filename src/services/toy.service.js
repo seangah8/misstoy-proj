@@ -19,14 +19,11 @@ async function query(filter={}){
     return toysList
 }
 
-function get(toyId) {
-    return storageService.get(TOY_KEY, toyId)
-        .then(toy => {
-            toy = _setNextPrevToyId(toy)
-            return toy
-        })
+async function get(toyId) {
+    const toy = await storageService.get(TOY_KEY, toyId);
+    const extraToys = await _setNextToys(toy);
+    return { ...toy, extraToys };
 }
-
 function remove(toyId) {
     return storageService.remove(TOY_KEY, toyId)
 }
@@ -58,14 +55,19 @@ function getFilterFromSearchParams(searchParams) {
     return filterBy
 }
 
-function _setNextPrevToyId(toy) {
+function _setNextToys(toy, howManyNext = 10) {
     return storageService.query(TOY_KEY).then((toys) => {
-        const toyIdx = toys.findIndex((currtoy) => currtoy.id === toy.id)
-        const nexttoy = toys[toyIdx + 1] ? toys[toyIdx + 1] : toys[0]
-        const prevtoy = toys[toyIdx - 1] ? toys[toyIdx - 1] : toys[toys.length - 1]
-        toy.nexttoyId = nexttoy.id
-        toy.prevtoyId = prevtoy.id
-        return toy
+        let toyIdx = toys.findIndex((currtoy) => currtoy.id === toy.id)
+        let steps = Math.min(toys.length-1, howManyNext)
+        const extraToys = []
+
+        while(steps > 0){
+            toyIdx++
+            if(toyIdx >= toys.length) toyIdx=0
+            extraToys.push(toys[toyIdx]) 
+            steps--
+        }
+        return extraToys
     })
 }
 
@@ -78,6 +80,7 @@ async function _makeStartingToys(amount = 5){
             const newToy = {
                 id: utilService.makeId(),
                 name: _randomToysNames(),
+                imageLink: './default_img.jpg',
                 price: (4.99 + parseInt(Math.random() * 25)).toFixed(2),
                 labels: _getRandomLabels(parseInt
                     (1 + Math.floor(Math.random()*4))), // 4 labels max
