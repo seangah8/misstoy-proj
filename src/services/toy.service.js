@@ -32,7 +32,7 @@ function remove(toyId) {
 }
 
 function save(toy) {
-    if (toy._id) return storageService.put(TOY_KEY, toy)
+    if (toy.id) return storageService.put(TOY_KEY, toy)
     else {
         toy.createdAt = Date.now()
         return storageService.post(TOY_KEY, toy)
@@ -60,11 +60,11 @@ function getFilterFromSearchParams(searchParams) {
 
 function _setNextPrevToyId(toy) {
     return storageService.query(TOY_KEY).then((toys) => {
-        const toyIdx = toys.findIndex((currtoy) => currtoy._id === toy._id)
+        const toyIdx = toys.findIndex((currtoy) => currtoy.id === toy.id)
         const nexttoy = toys[toyIdx + 1] ? toys[toyIdx + 1] : toys[0]
         const prevtoy = toys[toyIdx - 1] ? toys[toyIdx - 1] : toys[toys.length - 1]
-        toy.nexttoyId = nexttoy._id
-        toy.prevtoyId = prevtoy._id
+        toy.nexttoyId = nexttoy.id
+        toy.prevtoyId = prevtoy.id
         return toy
     })
 }
