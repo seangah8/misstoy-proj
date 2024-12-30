@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import './App.css'
 import { ToyIndex } from './pages/ToyIndex.jsx'
 import { Home } from './pages/Home.jsx'
+import { ToyDetails } from './pages/ToyDetails.jsx'
 import { store } from './store/store.js'
 
 
@@ -18,7 +19,8 @@ function App() {
             <Routes>
               <Route path="/" element={<ToyIndex />} />
               <Route path="/home" element={<Home />} />
-              <Route path="/toy-index" element={<ToyIndex />} />
+              <Route path="/toys" element={<ToyIndex />} />
+              <Route path="/toys/:toyId" element={<ToyDetails />} />
             </Routes>
           </main>
         </section>

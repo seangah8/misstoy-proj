@@ -78,7 +78,7 @@ async function _makeStartingToys(amount = 5){
             const newToy = {
                 id: utilService.makeId(),
                 name: _randomToysNames(),
-                price: parseInt(Math.random() * 30),
+                price: (4.99 + parseInt(Math.random() * 25)).toFixed(2),
                 labels: _getRandomLabels(parseInt
                     (1 + Math.floor(Math.random()*4))), // 4 labels max
                 createdAt: Date.now(),
