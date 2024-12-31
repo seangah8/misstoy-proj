@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 
 import { useEffect } from "react"
-import { loadToys, removeToy } from '../store/toy/toy.actions.js'
+import { loadToys, removeToy } from '../store/actions/toy.actions.js'
 
 import { ToyList } from "../cmp/ToyList.jsx"
 

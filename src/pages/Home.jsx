@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 
 import { useEffect } from "react"
-import { loadToys } from '../store/toy/toy.actions.js'
+import { loadToys } from '../store/actions/toy.actions.js'
 
 export function Home(){
 

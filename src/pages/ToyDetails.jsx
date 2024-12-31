@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 
 import { toyService } from '../services/toy.service.js'
 import { ToyExtra } from '../cmp/ToyExtra.jsx'
@@ -7,6 +7,7 @@ import { ToyExtra } from '../cmp/ToyExtra.jsx'
 
 export function ToyDetails(){
 
+    const navigate = useNavigate()
     const params = useParams()
     const [toy, setToy] = useState()
 
@@ -19,17 +20,21 @@ export function ToyDetails(){
         setToy(toy)
     }
 
-    if(!toy) return <h2>Loading...</h2>
+    function onBack(){
+        navigate('/toys')
+    }
 
-    console.log(toy)
+    if(!toy) return <h2>Loading...</h2>
 
     return(
         <section className="toy-details">
+            <button onClick={onBack}>Back</button>
             <p>{`Toy: ${toy.name}`}</p>
             <p>{`Labels: ${toy.labels}`}</p>
             <img src={toy.imageLink}/>
             <p>{`Price: ${toy.price}`}</p>
             <p>{`is in stock?: ${toy.inStock}`}</p>
+            <button><Link to={`/toys/edit/${toy.id}`}>Edit</Link></button>
 
             <section className='extra-toys'>
             {

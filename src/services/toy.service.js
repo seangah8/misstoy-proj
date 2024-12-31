@@ -9,6 +9,7 @@ export const toyService = {
     getEmptytoy,
     getDefaultFilter,
     getFilterFromSearchParams,
+    getLabels,
 }
 
 const TOY_KEY = 'toysDB'
@@ -37,8 +38,8 @@ function save(toy) {
 }
 
 function getEmptytoy(name='', price = 0, labels=[],
-     createdAt= Date.now(), inStock=false) {
-    return { name, price, labels, createdAt, inStock }
+    createdAt= Date.now(), inStock=false, imageLink='./default_img.jpg') {
+    return { name, price, labels, createdAt, inStock, imageLink }
 }
 
 //needs to get edit
@@ -53,6 +54,11 @@ function getFilterFromSearchParams(searchParams) {
         filterBy[field] = searchParams.get(field) || ''
     }
     return filterBy
+}
+
+function getLabels(){
+    return ['On wheels', 'Box game', 'Art', 'Baby',
+        'Doll', 'Puzzle','Outdoor', 'Battery Powered']
 }
 
 function _setNextToys(toy, howManyNext = 10) {
@@ -101,9 +107,7 @@ function _randomToysNames(){
 }  
 
 function _getRandomLabels(amount = 3){
-    const labels = ['On wheels', 'Box game', 'Art', 'Baby',
-        'Doll', 'Puzzle','Outdoor', 'Battery Powered']
-   
+    const labels = getLabels()
     const labelsAmount = amount
     const toyLabels = []
     for(let i=0; i<labelsAmount; i++){

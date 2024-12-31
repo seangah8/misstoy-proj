@@ -5,7 +5,7 @@ export const EDIT_TOY = 'EDIT_TOY'
 export const SET_FILTER = 'SET_FILTER'
 
 const initialState = {
-    toys: null,
+    toys: [],
     filterBy: {},
     isLoading: true,
 }

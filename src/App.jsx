@@ -5,6 +5,7 @@ import './App.css'
 import { ToyIndex } from './pages/ToyIndex.jsx'
 import { Home } from './pages/Home.jsx'
 import { ToyDetails } from './pages/ToyDetails.jsx'
+import { ToyEdit } from './pages/ToyEdit.jsx'
 import { store } from './store/store.js'
 
 
@@ -21,6 +22,8 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/toys" element={<ToyIndex />} />
               <Route path="/toys/:toyId" element={<ToyDetails />} />
+              <Route path="/toys/edit" element={<ToyEdit />} />
+              <Route path="/toys/edit/:toyId" element={<ToyEdit />} />
             </Routes>
           </main>
         </section>
