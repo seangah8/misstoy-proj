@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
-
+import { uploadService } from '../services/upload.service.js'
 import { toyService } from '../services/toy.service.js'
 import { saveToy } from '../store/actions/toy.actions.js'
 
@@ -10,7 +10,8 @@ export function ToyEdit(){
     const navigate = useNavigate()
     const params = useParams()
     const [toyToEdit, setToyToEdit] = useState(toyService.getEmptytoy)
-
+    const [uploadingImg, setUploadingImg] = useState(false)
+    
     useEffect(()=>{
         if(params.toyId) loadToy()
     },[])
@@ -57,6 +58,15 @@ export function ToyEdit(){
 
     function isToyOwnLable(lable){
         return toyToEdit.labels.some(lab => lab === lable)
+    }
+
+    async function uploadImg(event){
+        setUploadingImg(true)
+        event.preventDefault()
+        const {secure_url} = await uploadService.uploadImg(event)
+        setToyToEdit(prevToy => 
+            ({ ...prevToy, imageLink: secure_url }))
+        setUploadingImg(false)
     }
 
     if(!toyToEdit) return <h2>Loading...</h2>
@@ -110,6 +120,12 @@ export function ToyEdit(){
                     type="checkbox" 
                     name="inStock" 
                     id="in-stock" />
+
+
+                {uploadingImg ? <p>Uploading...</p>: <img src={imageLink} />}
+                <label htmlFor="imgUpload">Upload: </label>
+                <input type="file" onChange={uploadImg} accept="img/*" id="imgUpload" />
+
 
                 <button>Submit Changes</button>
                 
