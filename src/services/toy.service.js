@@ -24,6 +24,27 @@ async function query(filter={}){
         toys = toys.filter(toy => regExp.test(toy.name))
     }
 
+    if (filter.inStock) {
+        toys = toys.filter(toy => toy.inStock)
+    }
+
+    if (filter.labels?.length) {
+        toys = toys.filter(toy => 
+            filter.labels.some(label => 
+                toy.labels.some(toyLabel => toyLabel === label)
+            )
+        )
+    }
+
+    if (filter.orderBy !== 'created') {
+        if (filter.orderBy === 'price') {
+            toys.sort((t1, t2) => t1.price - t2.price)
+        }
+        if (filter.orderBy === 'name') {
+            toys.sort((t1, t2) => t1.name.localeCompare(t2.name))
+        }
+    }
+    
     return toys
 }
 
@@ -51,7 +72,8 @@ function getEmptytoy(name='', price = 0, labels=[],
 
 //needs to get edit
 function getDefaultFilter() {
-    return { name: '' }
+    return { name: '', labels: [],
+         inStock: false, orderBy: 'created' }
 }
 
 function getFilterFromSearchParams(searchParams) {

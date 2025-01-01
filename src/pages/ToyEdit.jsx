@@ -42,7 +42,7 @@ export function ToyEdit(){
             if (value && !isToyOwnLable(target.id)) {
                 toyLabels.push(target.id)
             } else if (!value && isToyOwnLable(target.id)) {
-                toyLabels = toyLabels.filter(lab => lab !== target.id) // Assign the filtered array back
+                toyLabels = toyLabels.filter(lab => lab !== target.id)
             }
             value = toyLabels
         }
