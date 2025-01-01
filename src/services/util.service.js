@@ -29,5 +29,7 @@ export function debounce(func, delay=500) {
         timeoutId = setTimeout(() => {
             func(...args)
         }, delay)
+   
+   
     }
 }

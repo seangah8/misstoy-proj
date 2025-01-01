@@ -11,6 +11,9 @@ import { ToyFilter } from "../cmp/ToyFilter.jsx"
 
 export function ToyIndex(){
 
+    const user = useSelector(storeState =>
+        storeState.userModule.loggedInUser)
+
     const toys = useSelector(storeState =>
          storeState.toyModule.toys)
 
@@ -37,8 +40,14 @@ export function ToyIndex(){
     return(
         <section className="toy-index">
             <ToyFilter onSetFilterBy={onSetFilterByDebounce}/>
-            <button><Link to={`/toys/edit`}>Add Toy +</Link></button>
-            <ToyList toys={toys} onRemoveToy={onRemoveToy}/>
+            {
+                (user.username === 'admin') ? <button>
+                    <Link to={`/toys/edit`}>Add Toy +</Link></button>
+                    : ''
+            }
+            
+            <ToyList toys={toys} onRemoveToy={onRemoveToy} 
+                username={user.username}/>
         </section>
     )
 }

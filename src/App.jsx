@@ -6,6 +6,8 @@ import { ToyIndex } from './pages/ToyIndex.jsx'
 import { Home } from './pages/Home.jsx'
 import { ToyDetails } from './pages/ToyDetails.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
+import { AppHeader } from './pages/AppHeader.jsx'
+import { LoginSignup } from './pages/LoginSignup.jsx'
 import { store } from './store/store.js'
 
 
@@ -16,6 +18,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <section className="app main-layout">
+          <AppHeader/>
           <main>
             <Routes>
               <Route path="/" element={<ToyIndex />} />
@@ -24,6 +27,7 @@ function App() {
               <Route path="/toys/:toyId" element={<ToyDetails />} />
               <Route path="/toys/edit" element={<ToyEdit />} />
               <Route path="/toys/edit/:toyId" element={<ToyEdit />} />
+              <Route path="/login" element={<LoginSignup />} />
             </Routes>
           </main>
         </section>

@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import { toyService } from '../services/toy.service.js'
 import { ToyExtra } from '../cmp/ToyExtra.jsx'
 
 
 export function ToyDetails(){
+
+    const user = useSelector(storeState =>
+         storeState.userModule.loggedInUser)
 
     const navigate = useNavigate()
     const params = useParams()
@@ -34,7 +38,13 @@ export function ToyDetails(){
             <img src={toy.imageLink}/>
             <p>{`Price: ${toy.price}`}</p>
             <p>{`is in stock?: ${toy.inStock}`}</p>
-            <button><Link to={`/toys/edit/${toy.id}`}>Edit</Link></button>
+            {
+                (user.username === 'admin') ? <button>
+                    <Link to={`/toys/edit/${toy.id}`}>Edit</Link>
+                </button>
+                : ''
+            }
+            
 
             <section className='extra-toys'>
             {

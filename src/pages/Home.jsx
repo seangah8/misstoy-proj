@@ -15,8 +15,6 @@ export function Home(){
 
     if(!toys) return <h2>Loading..</h2>
 
-    console.log(toys)
-
     return(
         <section className="home">
             <h4>{`there are ${toys.length} toys in store`}</h4>         

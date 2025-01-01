@@ -44,7 +44,7 @@ async function query(filter={}){
             toys.sort((t1, t2) => t1.name.localeCompare(t2.name))
         }
     }
-    
+
     return toys
 }
 
@@ -70,7 +70,7 @@ function getEmptytoy(name='', price = 0, labels=[],
     return { name, price, labels, createdAt, inStock, imageLink }
 }
 
-//needs to get edit
+
 function getDefaultFilter() {
     return { name: '', labels: [],
          inStock: false, orderBy: 'created' }
@@ -89,6 +89,7 @@ function getLabels(){
     return ['On wheels', 'Box game', 'Art', 'Baby',
         'Doll', 'Puzzle','Outdoor', 'Battery Powered']
 }
+
 
 function _setNextToys(toy, howManyNext = 10) {
     return storageService.query(TOY_KEY).then((toys) => {
