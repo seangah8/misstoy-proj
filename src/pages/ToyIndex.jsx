@@ -37,17 +37,18 @@ export function ToyIndex(){
 
     if(!toys) return <h2>Loading..</h2>
 
+
     return(
         <section className="toy-index">
             <ToyFilter onSetFilterBy={onSetFilterByDebounce}/>
             {
-                (user.username === 'admin') ? <button>
+                (user?.username === 'admin') ? <button>
                     <Link to={`/toys/edit`}>Add Toy +</Link></button>
                     : ''
             }
             
             <ToyList toys={toys} onRemoveToy={onRemoveToy} 
-                username={user.username}/>
+                username={user?.username}/>
         </section>
     )
 }

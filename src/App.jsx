@@ -8,6 +8,7 @@ import { ToyDetails } from './pages/ToyDetails.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
 import { AppHeader } from './pages/AppHeader.jsx'
 import { LoginSignup } from './pages/LoginSignup.jsx'
+import { UserMessage } from './cmp/UserMessage.jsx'
 import { store } from './store/store.js'
 
 
@@ -19,6 +20,7 @@ function App() {
       <Router>
         <section className="app main-layout">
           <AppHeader/>
+          <UserMessage/>
           <main>
             <Routes>
               <Route path="/" element={<ToyIndex />} />

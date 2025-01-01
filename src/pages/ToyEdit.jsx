@@ -5,15 +5,19 @@ import { uploadService } from '../services/upload.service.js'
 import { toyService } from '../services/toy.service.js'
 import { saveToy } from '../store/actions/toy.actions.js'
 
+
 export function ToyEdit(){
 
     const navigate = useNavigate()
     const params = useParams()
-    const [toyToEdit, setToyToEdit] = useState(toyService.getEmptytoy)
+    const [toyToEdit, setToyToEdit] = useState(toyService.getEmptytoy())
     const [uploadingImg, setUploadingImg] = useState(false)
     
     useEffect(()=>{
-        if(params.toyId) loadToy()
+        if(params.toyId){
+            console.log('sdo;fn;sjeznvds')
+            loadToy()
+        } 
     },[])
 
     async function loadToy(){
@@ -54,7 +58,7 @@ export function ToyEdit(){
 
     async function onSaveToy(event){
         event.preventDefault() 
-        await saveToy(toyToEdit)
+        await saveToy(params.toyId, toyToEdit)
         onBack()
     }
 
