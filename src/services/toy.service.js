@@ -16,8 +16,15 @@ const TOY_KEY = 'toysDB'
 await _makeStartingToys()
 
 async function query(filter={}){
-    const toysList = await storageService.query(TOY_KEY) 
-    return toysList
+    
+    let toys = await storageService.query(TOY_KEY) 
+
+    if (filter.name) {
+        const regExp = new RegExp(filter.name, 'i')
+        toys = toys.filter(toy => regExp.test(toy.name))
+    }
+
+    return toys
 }
 
 async function get(toyId) {
@@ -44,7 +51,7 @@ function getEmptytoy(name='', price = 0, labels=[],
 
 //needs to get edit
 function getDefaultFilter() {
-    return { }
+    return { name: '' }
 }
 
 function getFilterFromSearchParams(searchParams) {

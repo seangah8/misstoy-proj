@@ -22,7 +22,8 @@ export function ToyEdit(){
     }
 
     function onBack() {
-        navigate(`/toys/${params.toyId}`)
+        params.toyId ? navigate(`/toys/${params.toyId}`)
+        : navigate(`/toys`)
     }
 
     function handleChange({ target }) {
@@ -51,9 +52,10 @@ export function ToyEdit(){
             ({ ...prevToy, [field]: value }))
     }
 
-    function onSaveToy(event){
-        event.preventDefault()
-        saveToy(toyToEdit)
+    async function onSaveToy(event){
+        event.preventDefault() 
+        await saveToy(toyToEdit)
+        onBack()
     }
 
     function isToyOwnLable(lable){
@@ -70,8 +72,6 @@ export function ToyEdit(){
     }
 
     if(!toyToEdit) return <h2>Loading...</h2>
-
-    console.log(toyToEdit)
 
     const { imageLink, inStock, name, price } = toyToEdit
 
@@ -127,7 +127,7 @@ export function ToyEdit(){
                 <input type="file" onChange={uploadImg} accept="img/*" id="imgUpload" />
 
 
-                <button>Submit Changes</button>
+                <button>{params.toyId? 'Submit Canges' : 'Add Toy'}</button>
                 
             </form>
         </section>

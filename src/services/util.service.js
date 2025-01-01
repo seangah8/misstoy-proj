@@ -3,6 +3,7 @@ export const utilService = {
     
     getRandomFromArray,
     makeId,
+    debounce,
 }
 
 function getRandomFromArray(arr){
@@ -18,4 +19,15 @@ function makeId(length = 5){
         text += possible.charAt(Math.floor(Math.random() * possible.length))
     }
     return text
+}
+
+export function debounce(func, delay=500) {
+    let timeoutId
+
+    return (...args) => {
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+            func(...args)
+        }, delay)
+    }
 }
