@@ -8,6 +8,7 @@ export function UserMessage() {
     const [msg, setMsg] = useState(null)
 
     useEffect(() => {
+        //UserMessage waiting on the line to someone to call
         const unsubscribe = eventBusService.on('show-user-msg', msg => {
             setMsg(msg)
             setTimeout(() => {

@@ -35,5 +35,7 @@ export function showErrorMsg(txt) {
     showUserMsg({ txt, type: 'error' })
 }
 
-window.showSuccessMsg = showSuccessMsg
-window.showErrorMsg = showErrorMsg
+export function showRemoveToyModal(toy) {
+    eventBusService.emit('show-modal', {toy, type: 'remove-toy'})
+}
+

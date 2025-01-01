@@ -10,7 +10,7 @@ export function ToyList({ toys, onRemoveToy, username }){
                         {
                             (username === 'admin') 
                                 ? <button onClick={()=>
-                                    onRemoveToy(toy.id)}>X</button> 
+                                    onRemoveToy(toy)}>X</button> 
                                 : ''
                         }
                         

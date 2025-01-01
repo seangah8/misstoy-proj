@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 
 
 import { useEffect, useRef } from "react"
-import { loadToys, removeToy, setFilterBy } from '../store/actions/toy.actions.js'
+import { loadToys, setFilterBy } from '../store/actions/toy.actions.js'
 
 import { utilService } from "../services/util.service.js"
+import { showRemoveToyModal } from '../services/event.bus.service.js'
 import { ToyList } from "../cmp/ToyList.jsx"
 import { ToyFilter } from "../cmp/ToyFilter.jsx"
 
@@ -27,8 +28,8 @@ export function ToyIndex(){
         loadToys()
     },[filterBy])
 
-    function onRemoveToy(toyId){
-        removeToy(toyId)
+    function onRemoveToy(toy){
+        showRemoveToyModal(toy)
     }
 
     function onSetFilterBy(filterByToEdit){

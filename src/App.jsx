@@ -9,6 +9,7 @@ import { ToyEdit } from './pages/ToyEdit.jsx'
 import { AppHeader } from './pages/AppHeader.jsx'
 import { LoginSignup } from './pages/LoginSignup.jsx'
 import { UserMessage } from './cmp/UserMessage.jsx'
+import { ModalMessage } from './cmp/ModalMessage.jsx'
 import { store } from './store/store.js'
 
 
@@ -21,6 +22,7 @@ function App() {
         <section className="app main-layout">
           <AppHeader/>
           <UserMessage/>
+          <ModalMessage/>
           <main>
             <Routes>
               <Route path="/" element={<ToyIndex />} />
