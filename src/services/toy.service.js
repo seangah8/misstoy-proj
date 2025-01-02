@@ -13,9 +13,10 @@ export const toyService = {
 }
 
 const TOY_KEY = 'toysDB'
-await _makeStartingToys()
+
 
 async function query(filter={}){
+    await _makeStartingToys()
     
     let toys = await storageService.query(TOY_KEY) 
 
