@@ -2,13 +2,13 @@
 /* Links */
 
 /* Setup */
-@import "../setup/variables";
+@use "../setup/variables";
 
 /* Components */
 
 body{
     margin: 0px;
-    background-color: $bule-light;
+    background-color: variables.$bule-light;
 }
 
 
